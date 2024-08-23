@@ -11,3 +11,7 @@ spring:
             username: ${MONGODB_USERNAME}
             password: ${MONGODB_PASSWORD}
     
+
+lastfm:
+    api:
+        key: ${LASTFM_API_KEY}
