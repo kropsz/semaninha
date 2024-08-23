@@ -1,0 +1,13 @@
+spring:
+    application:
+        name: mslastfm
+
+    data:
+        mongodb:
+            uri: mongodb://${MONGODB_HOST}:27017/mslastfm
+            database: mslastfm
+            port: 27017
+            host: ${MONGODB_HOST}
+            username: ${MONGODB_USERNAME}
+            password: ${MONGODB_PASSWORD}
+    
