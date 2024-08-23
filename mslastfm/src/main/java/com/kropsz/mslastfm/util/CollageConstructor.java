@@ -18,9 +18,12 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import javax.imageio.ImageIO;
 
+import org.springframework.stereotype.Component;
+
 import com.kropsz.mslastfm.dto.album.AlbumsResponse;
 import com.kropsz.mslastfm.exception.ImageCreateException;
 
+@Component
 public class CollageConstructor {
 
     public static final int GRID_WIDTH = 1250;
