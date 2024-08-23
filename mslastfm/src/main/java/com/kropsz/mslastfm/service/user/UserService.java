@@ -31,10 +31,11 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public void addCollageToUser(UserData user, URL fileName) {
+    public Collage addCollageToUser(UserData user, URL fileName) {
         Collage collage = new Collage(fileName, LocalDate.now());
         user.addCollage(collage);
         userRepository.save(user);
+        return collage;
     }
 
     public List<Collage> getCollages(String username) {

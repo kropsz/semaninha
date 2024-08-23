@@ -6,6 +6,7 @@ import java.net.URL;
 
 import org.springframework.stereotype.Service;
 
+import com.kropsz.mslastfm.data.model.Collage;
 import com.kropsz.mslastfm.data.model.UserData;
 import com.kropsz.mslastfm.dto.Request;
 import com.kropsz.mslastfm.feign.LastfmClient;
@@ -25,18 +26,18 @@ public class CollageService {
     private final S3Service s3Service;
     private final UserService userService;
 
-    public void createCollage(Request request) throws IOException {
+    public Collage createCollage(Request request) throws IOException {
         var user = userService.getUserData(request.user());
 
         var response = lastfmClient.getTopAlbums(request);
         var image =  collageConstructor.drawImagesInGrid(response, request.limit());
-        saveCollage(image, user);
+        return saveCollage(image, user);
     }
 
-    public void saveCollage(BufferedImage image, UserData user) throws IOException {
+    public Collage saveCollage(BufferedImage image, UserData user) throws IOException {
         String fileName = "collage_" + user.getUser() + "_" + user.getCollages().size() + ".png";
         s3Service.uploadImage(image, fileName);
-        userService.addCollageToUser(user, getCollageUrl(fileName));
+        return userService.addCollageToUser(user, getCollageUrl(fileName));
 
     }
 

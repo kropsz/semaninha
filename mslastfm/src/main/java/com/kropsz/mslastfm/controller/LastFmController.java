@@ -29,9 +29,8 @@ public class LastFmController {
     private final UserService userService;
 
     @PostMapping("/collage")
-    public ResponseEntity<String> createCollage(@RequestBody @Valid Request request) throws IOException {
-        collageService.createCollage(request);
-        return ResponseEntity.status(HttpStatus.CREATED).body("Collage created!!");
+    public ResponseEntity<Collage> createCollage(@RequestBody @Valid Request request) throws IOException {
+        return ResponseEntity.status(HttpStatus.CREATED).body(collageService.createCollage(request));
     }
 
     @GetMapping("/collage/{username}")
