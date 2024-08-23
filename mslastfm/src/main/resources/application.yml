@@ -15,3 +15,10 @@ spring:
 lastfm:
     api:
         key: ${LASTFM_API_KEY}
+
+aws:
+    s3:
+        accessKey: ${AWS_ACCESS_KEY}
+        secretKey: ${AWS_SECRET_KEY}
+        bucketName: ${AWS_BUCKET_NAME}
+        region: ${AWS_REGION}
