@@ -23,11 +23,11 @@ public interface LastfmClient {
                         @PathVariable int limit);
 
         default AlbumsResponse getTopAlbums(Request request) {
-                return getTopAlbums(request.user(), request.period(), request.limit());
+                return getTopAlbums(request.getUser(), request.getPeriod(), request.getLimit());
         }
 
         default TrackResponse getTopTracks(Request request) {
-                return getTopTracks(request.user(), request.period(), request.limit());
+                return getTopTracks(request.getUser(), request.getPeriod(), request.getLimit());
         }
 
 }

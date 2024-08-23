@@ -27,10 +27,10 @@ public class CollageService {
     private final UserService userService;
 
     public Collage createCollage(Request request) throws IOException {
-        var user = userService.getUserData(request.user());
+        var user = userService.getUserData(request.getUser());
 
         var response = lastfmClient.getTopAlbums(request);
-        var image =  collageConstructor.drawImagesInGrid(response, request.limit());
+        var image =  collageConstructor.drawImagesInGrid(response, request.getLimit());
         return saveCollage(image, user);
     }
 

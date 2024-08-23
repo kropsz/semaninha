@@ -65,16 +65,16 @@ class CollageServiceTest {
     @Test
     @DisplayName("Create collage")
     void testCreateCollage() throws IOException {
-        when(userService.getUserData(request.user())).thenReturn(user);
+        when(userService.getUserData(request.getUser())).thenReturn(user);
         when(lastfmClient.getTopAlbums(request)).thenReturn(albumsResponse);
-        when(collageConstructor.drawImagesInGrid(albumsResponse, request.limit())).thenReturn(image);
+        when(collageConstructor.drawImagesInGrid(albumsResponse, request.getLimit())).thenReturn(image);
         when(s3Service.getPublicUrl(anyString())).thenReturn(new URL("http://example.com/collage_testUser_0.png"));
 
         collageService.createCollage(request);
 
-        verify(userService).getUserData(request.user());
+        verify(userService).getUserData(request.getUser());
         verify(lastfmClient).getTopAlbums(request);
-        verify(collageConstructor).drawImagesInGrid(albumsResponse, request.limit());
+        verify(collageConstructor).drawImagesInGrid(albumsResponse, request.getLimit());
         verify(s3Service).uploadImage(any(BufferedImage.class), anyString());
         verify(userService).addCollageToUser(eq(user), any(URL.class));
     }
