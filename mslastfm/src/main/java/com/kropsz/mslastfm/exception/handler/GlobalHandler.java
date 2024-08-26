@@ -25,8 +25,8 @@ public class GlobalHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorMessage> methodArgumentNotValidException(MethodArgumentNotValidException ex,
-                                                                        HttpServletRequest request,
-                                                                        BindingResult result) {
+            HttpServletRequest request,
+            BindingResult result) {
         log.error("Api Error - ", ex);
         return ResponseEntity
                 .status(HttpStatus.UNPROCESSABLE_ENTITY)
@@ -43,7 +43,7 @@ public class GlobalHandler {
                 .body(new ErrorMessage(request, HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage()));
     }
 
-    @ExceptionHandler({IOException.class, URISyntaxException.class})
+    @ExceptionHandler({ IOException.class, URISyntaxException.class })
     public ResponseEntity<ErrorMessage> ioException(Exception ex, HttpServletRequest request) {
         log.error("Api Error - ", ex);
         return ResponseEntity
