@@ -1,0 +1,4 @@
+rabbitmq:
+  suggestion:
+    exchange: suggestion-tracks.ex
+    queue: suggestion-tracks.ms-spotify
