@@ -8,3 +8,6 @@ rabbitmq:
       tracks:
         spotify: tracks.ms-spotify
         ai: tracks.ms-ai
+
+redis:
+    host: localhost
