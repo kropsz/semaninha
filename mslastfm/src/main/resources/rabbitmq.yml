@@ -1,0 +1,10 @@
+# RabbitMQ Queues and Exchanges
+
+rabbitmq:
+    exchange:
+      tracks: recent-tracks.ex
+
+    queue: 
+      tracks:
+        spotify: tracks.ms-spotify
+        ai: tracks.ms-ai

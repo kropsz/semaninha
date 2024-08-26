@@ -15,17 +15,23 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class RabbitMQConfig {
 
-    @Value("${rabbitmq.tracks.exchange}")
+    @Value("${rabbitmq.exchange.tracks}")
     private String recentTracksExchange;
+
+    @Value("${rabbitmq.queue.tracks.spotify}")
+    private String recentTracksQueueSpotify;
+
+    @Value("${rabbitmq.queue.tracks.ai}")
+    private String recentTracksQueueAi;
 
     @Bean
     public Queue createQueueToRecentTracksSpotify() {
-        return new Queue("tracks.ms-spotify", true);
+        return new Queue(recentTracksQueueSpotify, true);
     }
 
     @Bean
     public Queue createQueueToRecentTracksAi() {
-        return new Queue("tracks.ms-ai", true);
+        return new Queue(recentTracksQueueAi, true);
     }
 
     @Bean
