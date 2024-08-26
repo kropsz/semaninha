@@ -1,5 +1,5 @@
 FROM openjdk:21-jdk-slim
 
-COPY target/msspotify-0.0.1-SNAPSHOT.jar msspotify.jar
+COPY target/mslastfm-0.0.1-SNAPSHOT.jar mslastfm.jar
 
-CMD ["java", "-jar", "msspotify.jar"]
+CMD ["java", "-jar", "mslastfm.jar"]
