@@ -22,3 +22,9 @@ aws:
         secretKey: ${AWS_SECRET_KEY}
         bucketName: ${AWS_BUCKET_NAME}
         region: ${AWS_REGION}
+
+rabbitmq:
+    host: ${RABBITMQ_HOST}
+    port: ${RABBITMQ_PORT}
+    username: ${RABBITMQ_USERNAME}
+    password: ${RABBITMQ_PASSWORD}
