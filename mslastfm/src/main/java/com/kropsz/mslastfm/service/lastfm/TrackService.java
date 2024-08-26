@@ -35,15 +35,17 @@ public class TrackService {
     public void getRecentTracks(Request request) {
         UserTrackList userTracks = getRecentTracksFromRedis(request.getUser());
 
-        if (userTracks != null && userTracks.getPeriod().equals(request.getPeriod()))
+        if (userTracks != null && userTracks.getPeriod().equals(request.getPeriod())){
             trackHandler.handleTracksFromRedis(userTracks);
+            return;
+        }
 
         List<Track> tracks = fetchAndUpdateTracks(request, userTracks != null ? userTracks.getTracks() : null);
 
         trackHandler.handleTracksFromApi(new UserTrackList(request.getUser(), tracks, request.getPeriod()));
     }
 
-    protected List<Track> fetchAndUpdateTracks(Request request, List<Track> existingTracks) {
+    public List<Track> fetchAndUpdateTracks(Request request, List<Track> existingTracks) {
         var response = lastfmClient.getTopTracks(request);
         var newTracks = response.getToptracks().getTrack();
 
