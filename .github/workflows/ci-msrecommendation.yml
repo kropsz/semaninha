@@ -1,0 +1,34 @@
+name: Continuous Integration msrecommendation
+
+on:
+    push:
+      paths:
+        - 'msrecommendation/**'
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v3
+
+            - name: Setup Java
+              uses: actions/setup-java@v3
+              with:
+                distribution: 'temurin'
+                java-version: '21'
+
+            - name: Build project
+              run: |
+                cd msrecommendation
+                mvn clean install
+
+            - name: Build Docker image
+              run: | 
+                cd msrecommendation
+                docker build -t ${{secrets.DOCKER_USERNAME}}/msrecommendation .
+
+            - name: Login Docker Hub
+              run: docker login -u ${{secrets.DOCKER_USERNAME}} -p ${{secrets.DOCKER_PASSWORD}}
+
+            - name: Push Docker image
+              run: docker push ${{secrets.DOCKER_USERNAME}}/msrecommendation
