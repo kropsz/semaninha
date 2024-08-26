@@ -1,4 +1,6 @@
 spring:
+    config:
+        import: classpath:/config.yml
     application:
         name: msspotify
     rabbitmq:
