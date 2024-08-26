@@ -27,10 +27,6 @@ public class UserService {
         return new UserData(username);
     }
 
-    public void save(UserData user) {
-        userRepository.save(user);
-    }
-
     public Collage addCollageToUser(UserData user, URL fileName) {
         Collage collage = new Collage(fileName, LocalDate.now());
         user.addCollage(collage);

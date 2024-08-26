@@ -56,15 +56,6 @@ class UserServiceTest {
         verify(userRepository, times(1)).findByUser(username);
     }
 
-    @Test
-    @DisplayName("Should save user data")
-    void testSaveUserData() {
-        UserData userData = new UserData("user");
-        userService.save(userData);
-
-        verify(userRepository, times(1)).save(userData);
-    }
-
     @SuppressWarnings("deprecation")
     @Test
     @DisplayName("Should add collage to user and save")
