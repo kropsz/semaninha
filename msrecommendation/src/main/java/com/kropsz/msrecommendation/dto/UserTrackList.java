@@ -8,7 +8,8 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 @Data
-@AllArgsConstructor @NoArgsConstructor
+@AllArgsConstructor
+@NoArgsConstructor
 public class UserTrackList {
 
     private String user;
@@ -16,4 +17,3 @@ public class UserTrackList {
     private String period;
 
 }
-
