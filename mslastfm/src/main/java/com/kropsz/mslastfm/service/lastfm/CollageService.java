@@ -6,11 +6,12 @@ import java.awt.image.BufferedImage;
 
 import com.kropsz.mslastfm.data.model.Collage;
 import com.kropsz.mslastfm.data.model.UserData;
+import com.kropsz.mslastfm.dto.LinkCollage;
 import com.kropsz.mslastfm.dto.Request;
 
 public interface CollageService {
 
-    public Collage createCollage(Request request) throws IOException;
+    public LinkCollage createCollage(Request request) throws IOException;
 
     public Collage saveCollage(BufferedImage image, UserData user) throws IOException;
 

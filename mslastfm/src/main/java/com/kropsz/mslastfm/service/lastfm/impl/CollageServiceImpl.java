@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.kropsz.mslastfm.data.model.Collage;
 import com.kropsz.mslastfm.data.model.UserData;
+import com.kropsz.mslastfm.dto.LinkCollage;
 import com.kropsz.mslastfm.dto.Request;
 import com.kropsz.mslastfm.feign.LastfmClient;
 import com.kropsz.mslastfm.service.lastfm.CollageService;
@@ -16,7 +17,6 @@ import com.kropsz.mslastfm.service.user.UserService;
 import com.kropsz.mslastfm.util.CollageConstructor;
 
 import lombok.RequiredArgsConstructor;
-
 
 @Service
 @RequiredArgsConstructor
@@ -28,12 +28,13 @@ public class CollageServiceImpl implements CollageService {
     private final UserService userService;
 
     @Override
-    public Collage createCollage(Request request) throws IOException {
+    public LinkCollage createCollage(Request request) throws IOException {
         var user = userService.getUserData(request.getUser());
 
-        var response = lastfmClient.getTopAlbums(request);
-        var image =  collageConstructor.drawImagesInGrid(response, request.getLimit());
-        return saveCollage(image, user);
+        var image = collageConstructor.drawImagesInGrid(lastfmClient.getTopAlbums(request), request.getLimit());
+
+        var collage = saveCollage(image, user);
+        return new LinkCollage(collage.getImageUrl().toString());
     }
 
     @Override
@@ -45,9 +46,8 @@ public class CollageServiceImpl implements CollageService {
     }
 
     @Override
-    public URL getCollageUrl(String fileName){
+    public URL getCollageUrl(String fileName) {
         return s3Service.getPublicUrl(fileName);
     }
-
 
 }

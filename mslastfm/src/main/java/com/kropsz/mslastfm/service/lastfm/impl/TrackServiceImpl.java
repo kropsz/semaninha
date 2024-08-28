@@ -34,17 +34,18 @@ public class TrackServiceImpl implements TrackService {
     private final DefaultTrackHandler trackHandler;
 
     @Override
-    public void getRecentTracks(Request request) {
+    public List<Track> getRecentTracks(Request request) {
         UserTrackList userTracks = getRecentTracksFromRedis(request.getUser());
 
         if (userTracks != null && userTracks.getPeriod().equals(request.getPeriod())){
             trackHandler.handleTracksFromRedis(userTracks);
-            return;
+            return userTracks.getTracks();
         }
 
         List<Track> tracks = fetchAndUpdateTracks(request, userTracks != null ? userTracks.getTracks() : null);
 
         trackHandler.handleTracksFromApi(new UserTrackList(request.getUser(), tracks, request.getPeriod()));
+        return tracks;
     }
 
     @Override

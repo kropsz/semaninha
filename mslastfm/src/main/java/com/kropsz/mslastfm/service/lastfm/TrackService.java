@@ -8,7 +8,7 @@ import com.kropsz.mslastfm.dto.track.Track;
 
 public interface TrackService {
 
-    public void getRecentTracks(Request request);
+    public List<Track> getRecentTracks(Request request);
 
     public List<Track> fetchAndUpdateTracks(Request request, List<Track> existingTracks);
 
