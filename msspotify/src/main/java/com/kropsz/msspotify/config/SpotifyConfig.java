@@ -15,8 +15,7 @@ public class SpotifyConfig {
     @Value("${spotify.api.clientSecret}")
     private String clientSecret;
 
-
-    public SpotifyApi getSpotifyObject(){
+    public SpotifyApi getSpotifyObject() {
         URI redirectUri = SpotifyHttpManager.makeUri("http://localhost:8082/api/get-user-code");
 
         return new SpotifyApi.Builder()

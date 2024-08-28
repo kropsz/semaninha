@@ -52,15 +52,13 @@ public class AuthController {
             final AuthorizationCodeCredentials authorizationCode = authorizationCodeRequest.execute();
             spotifyApi.setAccessToken(authorizationCode.getAccessToken());
 
-
             final GetCurrentUsersProfileRequest getCurrentUsersProfile = spotifyApi.getCurrentUsersProfile().build();
 
             User user = getCurrentUsersProfile.execute();
             UserDetails userDetails = new UserDetails(
                     user.getId(),
                     authorizationCode.getAccessToken(),
-                    authorizationCode.getRefreshToken()
-            );
+                    authorizationCode.getRefreshToken());
             userDetailsService.saveUserDetails(userDetails);
             return userDetails;
         } catch (Exception e) {

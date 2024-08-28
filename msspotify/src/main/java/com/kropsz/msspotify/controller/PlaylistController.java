@@ -31,7 +31,8 @@ public class PlaylistController {
     @PostMapping("/recommend/{user}")
     public ResponseEntity<String> getRecommendation(@PathVariable String user) throws JsonProcessingException {
         UserDetails details = userDetails.getUserDetails();
-        return ResponseEntity.ok(playlistService.buildPlaylistWithTracks(details, user, PlaylistType.SUGGESTION_TRACKS));
+        return ResponseEntity
+                .ok(playlistService.buildPlaylistWithTracks(details, user, PlaylistType.SUGGESTION_TRACKS));
     }
 
 }

@@ -45,5 +45,5 @@ public class NotificationListener {
             throw new SpotifyApiException("Error receiving suggestion tracks");
         }
     }
-    
+
 }

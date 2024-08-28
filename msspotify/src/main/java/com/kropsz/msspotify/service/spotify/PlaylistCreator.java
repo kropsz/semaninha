@@ -19,7 +19,7 @@ import se.michaelthelin.spotify.requests.data.playlists.CreatePlaylistRequest;
 import se.michaelthelin.spotify.requests.data.search.simplified.SearchTracksRequest;
 
 @Component
-public class PlaylistCreator implements SpotifyPlaylist{
+public class PlaylistCreator implements SpotifyPlaylist {
 
     @Override
     public void addTracksToPlaylist(SpotifyApi spotifyApi, String playlistId, String[] tracksId) {
@@ -31,7 +31,7 @@ public class PlaylistCreator implements SpotifyPlaylist{
             throw new SpotifyApiException("Error adding tracks to playlist");
         }
     }
-    
+
     @Override
     public PlaylistDto createPlaylist(SpotifyApi spotifyApi, String userId, PlaylistType playlistType) {
         String playlistName = getPlaylistName(playlistType);
@@ -87,7 +87,6 @@ public class PlaylistCreator implements SpotifyPlaylist{
             return null;
         }
     }
-
 
     private String getPlaylistName(PlaylistType playlistType) {
         return switch (playlistType) {

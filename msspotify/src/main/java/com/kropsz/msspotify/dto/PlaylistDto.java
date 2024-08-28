@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class PlaylistDto {
-    
+
     private String id;
     private String link;
 }
