@@ -25,7 +25,7 @@ import com.kropsz.mslastfm.data.model.UserData;
 import com.kropsz.mslastfm.dto.Request;
 import com.kropsz.mslastfm.dto.album.AlbumsResponse;
 import com.kropsz.mslastfm.feign.LastfmClient;
-import com.kropsz.mslastfm.service.lastfm.CollageService;
+import com.kropsz.mslastfm.service.lastfm.impl.CollageServiceImpl;
 import com.kropsz.mslastfm.service.s3.S3Service;
 import com.kropsz.mslastfm.service.user.UserService;
 import com.kropsz.mslastfm.util.CollageConstructor;
@@ -34,7 +34,7 @@ import com.kropsz.mslastfm.util.CollageConstructor;
 class CollageServiceTest {
 
     @InjectMocks
-    private CollageService collageService;
+    private CollageServiceImpl collageService;
 
     @Mock
     private LastfmClient lastfmClient;

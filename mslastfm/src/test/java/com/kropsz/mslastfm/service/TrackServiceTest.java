@@ -36,14 +36,14 @@ import com.kropsz.mslastfm.dto.track.TrackResponse;
 import com.kropsz.mslastfm.exception.RedisOperationException;
 import com.kropsz.mslastfm.feign.LastfmClient;
 import com.kropsz.mslastfm.publisher.handler.impl.DefaultTrackHandler;
-import com.kropsz.mslastfm.service.lastfm.TrackService;
+import com.kropsz.mslastfm.service.lastfm.impl.TrackServiceImpl;
 
 @ExtendWith(MockitoExtension.class)
 class TrackServiceTest {
 
     @InjectMocks
     @Spy
-    private TrackService trackService;
+    private TrackServiceImpl trackService;
 
     @Mock
     private RedisTemplate<String, Object> redisTemplate;

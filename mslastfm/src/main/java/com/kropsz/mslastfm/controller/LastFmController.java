@@ -46,5 +46,4 @@ public class LastFmController {
         return ResponseEntity.ok().build();
     }
 
-
 }

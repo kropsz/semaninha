@@ -20,7 +20,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import com.kropsz.mslastfm.data.model.Collage;
 import com.kropsz.mslastfm.data.model.UserData;
 import com.kropsz.mslastfm.data.repository.UserDataRepository;
-import com.kropsz.mslastfm.service.user.UserService;
+import com.kropsz.mslastfm.service.user.impl.UserServiceImpl;
 
 @ExtendWith(MockitoExtension.class)
 class UserServiceTest {
@@ -29,7 +29,7 @@ class UserServiceTest {
     private UserDataRepository userRepository;
 
     @InjectMocks
-    private UserService userService;
+    private UserServiceImpl userService;
 
     @Test
     @DisplayName("Should return existing user data")
