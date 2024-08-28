@@ -11,6 +11,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.time.LocalDate;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -21,7 +22,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import com.kropsz.mslastfm.data.model.Collage;
 import com.kropsz.mslastfm.data.model.UserData;
+import com.kropsz.mslastfm.dto.LinkCollage;
 import com.kropsz.mslastfm.dto.Request;
 import com.kropsz.mslastfm.dto.album.AlbumsResponse;
 import com.kropsz.mslastfm.feign.LastfmClient;
@@ -65,19 +68,24 @@ class CollageServiceTest {
     @Test
     @DisplayName("Create collage")
     void testCreateCollage() throws IOException {
+        
+        Collage collage = new Collage(new URL("http://example.com/collage_testUser_0.png"), LocalDate.now());
+
         when(userService.getUserData(request.getUser())).thenReturn(user);
         when(lastfmClient.getTopAlbums(request)).thenReturn(albumsResponse);
         when(collageConstructor.drawImagesInGrid(albumsResponse, request.getLimit())).thenReturn(image);
         when(s3Service.getPublicUrl(anyString())).thenReturn(new URL("http://example.com/collage_testUser_0.png"));
+        when(collageService.saveCollage(image, user)).thenReturn(collage);
 
-        collageService.createCollage(request);
+        LinkCollage link = collageService.createCollage(request);
 
         verify(userService).getUserData(request.getUser());
         verify(lastfmClient).getTopAlbums(request);
         verify(collageConstructor).drawImagesInGrid(albumsResponse, request.getLimit());
-        verify(s3Service).uploadImage(any(BufferedImage.class), anyString());
-        verify(userService).addCollageToUser(eq(user), any(URL.class));
+        assertEquals(link.getLink(), collage.getImageUrl().toString());
+
     }
+
 
     @SuppressWarnings("deprecation")
     @Test

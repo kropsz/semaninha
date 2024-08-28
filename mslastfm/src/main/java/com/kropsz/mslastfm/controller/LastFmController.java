@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.kropsz.mslastfm.data.model.Collage;
+import com.kropsz.mslastfm.dto.LinkCollage;
 import com.kropsz.mslastfm.dto.Request;
+import com.kropsz.mslastfm.dto.track.Track;
 import com.kropsz.mslastfm.service.lastfm.CollageService;
 import com.kropsz.mslastfm.service.lastfm.TrackService;
 import com.kropsz.mslastfm.service.user.UserService;
@@ -31,7 +33,7 @@ public class LastFmController {
     private final TrackService trackService;
 
     @PostMapping("/collage")
-    public ResponseEntity<Collage> createCollage(@RequestBody @Valid Request request) throws IOException {
+    public ResponseEntity<LinkCollage> createCollage(@RequestBody @Valid Request request) throws IOException {
         return ResponseEntity.status(HttpStatus.CREATED).body(collageService.createCollage(request));
     }
 
@@ -41,9 +43,8 @@ public class LastFmController {
     }
 
     @GetMapping("/tracks")
-    public ResponseEntity<Void> getRecentTracks(@RequestBody @Valid Request request) {
-        trackService.getRecentTracks(request);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<List<Track>> getRecentTracks(@RequestBody @Valid Request request) {
+        return ResponseEntity.ok().body(trackService.getRecentTracks(request));
     }
 
 }
