@@ -1,4 +1,6 @@
 spring:
+    config:
+        import: "classpath:rabbitmq.yml"
     application:
         name: mslastfm
 
