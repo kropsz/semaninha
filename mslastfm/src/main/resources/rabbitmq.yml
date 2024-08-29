@@ -10,4 +10,4 @@ rabbitmq:
         ai: tracks.ms-ai
 
 redis:
-    host: ${REDIS_HOST}
+    host: localhost

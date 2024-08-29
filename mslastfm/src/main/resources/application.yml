@@ -4,6 +4,12 @@ spring:
     application:
         name: mslastfm
 
+    rabbitmq:
+        host: ${RABBITMQ_HOST}
+        port: ${RABBITMQ_PORT}
+        username: ${RABBITMQ_USERNAME}
+        password: ${RABBITMQ_PASSWORD}
+
     data:
         mongodb:
             uri: mongodb://${MONGODB_HOST}:27017/mslastfm
@@ -25,8 +31,3 @@ aws:
         bucketName: ${AWS_BUCKET_NAME}
         region: ${AWS_REGION}
 
-rabbitmq:
-    host: ${RABBITMQ_HOST}
-    port: ${RABBITMQ_PORT}
-    username: ${RABBITMQ_USERNAME}
-    password: ${RABBITMQ_PASSWORD}
