@@ -1,6 +1,13 @@
 spring:
     application:
       name: msrecommendation
+
+    rabbitmq:
+      host: ${RABBITMQ_HOST}
+      port: ${RABBITMQ_PORT}
+      username: ${RABBITMQ_USERNAME}
+      password: ${RABBITMQ_PASSWORD}
+
     config:
       import: "classpath:rabbitmq.yml"
     ai:
@@ -11,12 +18,6 @@ spring:
             model: claude-3-5-sonnet-20240620
             temperature: 0.7
             max-tokens: 450
-
-rabbitmq:
-    host: ${RABBITMQ_HOST}
-    port: ${RABBITMQ_PORT}
-    username: ${RABBITMQ_USERNAME}
-    password: ${RABBITMQ_PASSWORD}
 
 
 server:
