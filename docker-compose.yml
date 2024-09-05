@@ -1,0 +1,102 @@
+version: '3.8'
+
+services:
+  mslastfm:
+    image: kropsz/mslastfm:latest
+    healthcheck:
+        interval: 60s
+        timeout: 20s
+        retries: 10
+        start_period: 40s
+    environment:
+      - MONGODB_HOST=${MONGODB_HOST}
+      - MONGODB_USERNAME=${MONGODB_USERNAME}
+      - MONGODB_PASSWORD=${MONGODB_PASSWORD}
+      - LASTFM_API_KEY=${LASTFM_API_KEY}
+      - AWS_ACCESS_KEY=${AWS_ACCESS_KEY}
+      - AWS_SECRET_KEY=${AWS_SECRET_KEY}
+      - AWS_BUCKET_NAME=${AWS_BUCKET_NAME}
+      - AWS_REGION=${AWS_REGION}
+      - REDIS_HOST=${REDIS_HOST}
+      - RABBITMQ_HOST=${RABBITMQ_HOST}
+      - RABBITMQ_PORT=${RABBITMQ_PORT}
+      - RABBITMQ_USERNAME=${RABBITMQ_USERNAME}
+      - RABBITMQ_PASSWORD=${RABBITMQ_PASSWORD}
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+    ports:
+      - "8080:8080"
+
+  msspotify:
+    image: kropsz/msspotify:latest
+    healthcheck:
+        interval: 30s
+        timeout: 10s
+        retries: 5
+    environment:
+      - SPOTIFY_CLIENT_ID=${SPOTIFY_CLIENT_ID}
+      - SPOTIFY_CLIENT_SECRET=${SPOTIFY_CLIENT_SECRET}
+      - REDIS_HOST=${REDIS_HOST}
+      - RABBITMQ_HOST=${RABBITMQ_HOST}
+      - RABBITMQ_PORT=${RABBITMQ_PORT}
+      - RABBITMQ_USERNAME=${RABBITMQ_USERNAME}
+      - RABBITMQ_PASSWORD=${RABBITMQ_PASSWORD}
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+      mslastfm:
+        condition: service_healthy
+      msrecommendation:
+        condition: service_healthy
+    ports:
+      - "8082:8082"
+
+  msrecommendation:
+    image: kropsz/msrecommendation:latest
+    healthcheck:
+        interval: 30s
+        timeout: 10s
+        retries: 5
+    environment:
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - REDIS_HOST=${REDIS_HOST}
+      - RABBITMQ_HOST=${RABBITMQ_HOST}
+      - RABBITMQ_PORT=${RABBITMQ_PORT}
+      - RABBITMQ_USERNAME=${RABBITMQ_USERNAME}
+      - RABBITMQ_PASSWORD=${RABBITMQ_PASSWORD}
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+      mslastfm:
+        condition: service_healthy
+
+  mongodb:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGODB_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGODB_PASSWORD}
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    healthcheck:
+        test: rabbitmq-diagnostics -q ping
+        interval: 10s
+        timeout: 10s
+        retries: 5
+        start_period: 40s
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_USERNAME}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD}
+
+  redis:
+    image: redis:latest
+    container_name: redis
+    ports:
+        - "6379:6379"
