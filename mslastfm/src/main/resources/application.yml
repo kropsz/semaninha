@@ -12,7 +12,7 @@ spring:
 
     data:
         mongodb:
-            uri: mongodb://${MONGODB_HOST}:27017/mslastfm
+            uri: mongodb://${MONGODB_USERNAME}:${MONGODB_PASSWORD}@${MONGODB_HOST}:27017/mslastfm
             database: mslastfm
             port: 27017
             host: ${MONGODB_HOST}
