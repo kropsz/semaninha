@@ -1,0 +1,221 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100vw;
+  padding: 2rem;
+  position: relative;
+  box-sizing: border-box;
+  overflow: hidden;
+  z-index: 2;
+}
+
+.background-text {
+  position: absolute;
+  top: 20%;
+  left: 30%;
+  transform: translate(-50%, -30%);
+  font-family: "Open Sans", sans-serif;
+  font-size: 30rem;
+  color: rgba(255, 255, 255, 0.1);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.content {
+  width: 60vw;
+  position: relative;
+  z-index: 2;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  text-align: left;
+  margin-left: 1rem;
+}
+
+.header h1 {
+  font-size: 4rem;
+  margin: 0.5rem 0;
+  padding-left: 3rem;
+  text-shadow: 0 2px 3px rgba(0, 0, 0, 0.5);
+}
+
+.header h3 {
+  font-size: 1.5rem;
+  margin: 0.5rem 0;
+}
+
+.header p {
+  font-size: 1rem;
+  margin: 1rem 0;
+}
+
+.inputs {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}
+
+.inputs input,
+.inputs select {
+  flex: 1;
+  padding: 0.6rem;
+  border: 0.2rem solid #fff;
+  border-radius: 1.5rem;
+  box-sizing: border-box;
+  background: transparent;
+  color: #fff;
+  font-family: 'Comfortaa', sans-serif;
+  max-width: fit-content;
+}
+
+.inputs input::placeholder {
+  color: #fff;
+}
+
+.inputs select option {
+  background: #417B94;
+  color: #fff;
+}
+
+@keyframes glow {
+  0% {
+    box-shadow: 0 0 0.5rem #fff;
+  }
+
+  50% {
+    box-shadow: 0 0 2rem #fff;
+  }
+
+  100% {
+    box-shadow: 0 0 0.5rem #fff;
+  }
+}
+
+.btn {
+  font-size: 1.7rem;
+  margin-top: 1.5rem;
+  border-radius: 1.5rem;
+  padding: 1rem 2rem;
+  border: 0.2rem solid #ffffff;
+  background-clip: text;
+  color: transparent;
+  background-image: linear-gradient(to bottom right, #C5EBF0 50%, white 50%);
+  transition: transform 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.btn:hover {
+  animation: glow 3s infinite;
+}
+
+.inputs input,
+.inputs select {
+  cursor: pointer;
+}
+
+.background-image {
+  max-width: 35vw;
+  height: auto;
+  border-radius: 1.5rem;
+  display: flex;
+  position: fixed;
+  right: 1.6rem;
+  bottom: 0;
+  z-index: 2;
+}
+
+.custom-link {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: white;
+}
+
+
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .background-text {
+    font-size: 15rem;
+    top: 10%;
+    left: 50%;
+  }
+
+  .content {
+    width: 90vw;
+  }
+
+  .header {
+    flex-direction: column;
+    text-align: center;
+    margin-left: 0;
+  }
+
+  .header h1 {
+    font-size: 2.5rem;
+    padding-left: 0;
+  }
+
+  .header h3 {
+    font-size: 1rem;
+  }
+
+  .header p {
+    font-size: 0.8rem;
+  }
+
+  .inputs {
+    flex-direction: column;
+  }
+
+  .inputs input,
+  .inputs select {
+    max-width: 100%;
+  }
+
+  .btn {
+    font-size: 1.2rem;
+  }
+
+  .background-image {
+    max-width: 50vw;
+    right: 1rem;
+    bottom: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .background-text {
+    font-size: 10rem;
+    top: 5%;
+    left: 50%;
+  }
+
+  .header h1 {
+    font-size: 2rem;
+  }
+
+  .header h3 {
+    font-size: 0.9rem;
+  }
+
+  .header p {
+    font-size: 0.7rem;
+  }
+
+  .btn {
+    font-size: 1rem;
+  }
+
+  .background-image {
+    max-width: 60vw;
+    right: 0.5rem;
+    bottom: 0.5rem;
+  }
+}
