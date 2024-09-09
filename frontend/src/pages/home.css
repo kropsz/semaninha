@@ -93,6 +93,12 @@ p {
   max-width: fit-content;
 }
 
+.inputs input:focus,
+.inputs select:focus {
+  border-color: #fff; 
+  outline: none; 
+}
+
 .inputs input::placeholder {
   color: #fff;
 }
