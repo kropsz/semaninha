@@ -1,9 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@800&display=swap');
+
+
 .container {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-start;
   width: 100vw;
+  height: 100vh;
   padding: 2rem;
   position: relative;
   box-sizing: border-box;
@@ -13,18 +17,28 @@
 
 .background-text {
   position: absolute;
-  top: 20%;
-  left: 30%;
-  transform: translate(-50%, -30%);
-  font-family: "Open Sans", sans-serif;
+  transform: translate(-50%, -50%);
+  font-family: "Open Sans",sans-serif;
   font-size: 30rem;
   color: rgba(255, 255, 255, 0.1);
   z-index: 1;
   pointer-events: none;
 }
 
+.top{
+  top: 18%;
+  left: 40%;
+}
+
+.bot{
+  top: 95%;
+  left: 20%;
+  text-align: end;
+  box-sizing:content-box
+}
+
 .content {
-  width: 60vw;
+  width: 80vw;
   position: relative;
   z-index: 2;
 }
@@ -43,32 +57,39 @@
   text-shadow: 0 2px 3px rgba(0, 0, 0, 0.5);
 }
 
-.header h3 {
-  font-size: 1.5rem;
-  margin: 0.5rem 0;
+.description-container {
+  width: 65%; /* Ajuste conforme necessário para a largura desejada */
+  text-align: justify; /* Justifica o texto */
+  line-height: 1.5; /* Ajusta o espaçamento entre linhas para melhor legibilidade */
 }
 
-.header p {
-  font-size: 1rem;
-  margin: 1rem 0;
+h3 {
+  font-size: 1.6rem;
+  margin-top: 4rem;
+}
+
+p {
+  font-size: 1.2rem;
+  margin: 2.5rem 0;
 }
 
 .inputs {
   display: flex;
   flex-direction: row;
-  gap: 1rem;
+  gap: 1.6rem;
 }
 
 .inputs input,
 .inputs select {
   flex: 1;
-  padding: 0.6rem;
+  padding: 1rem;
   border: 0.2rem solid #fff;
   border-radius: 1.5rem;
   box-sizing: border-box;
   background: transparent;
   color: #fff;
   font-family: 'Comfortaa', sans-serif;
+  font-size: 1.2rem;
   max-width: fit-content;
 }
 
@@ -112,8 +133,7 @@
   animation: glow 3s infinite;
 }
 
-.inputs input,
-.inputs select {
+.inputs select, input {
   cursor: pointer;
 }
 
@@ -132,90 +152,4 @@
   color: inherit;
   text-decoration: underline;
   text-decoration-color: white;
-}
-
-
-@media (max-width: 768px) {
-  .container {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .background-text {
-    font-size: 15rem;
-    top: 10%;
-    left: 50%;
-  }
-
-  .content {
-    width: 90vw;
-  }
-
-  .header {
-    flex-direction: column;
-    text-align: center;
-    margin-left: 0;
-  }
-
-  .header h1 {
-    font-size: 2.5rem;
-    padding-left: 0;
-  }
-
-  .header h3 {
-    font-size: 1rem;
-  }
-
-  .header p {
-    font-size: 0.8rem;
-  }
-
-  .inputs {
-    flex-direction: column;
-  }
-
-  .inputs input,
-  .inputs select {
-    max-width: 100%;
-  }
-
-  .btn {
-    font-size: 1.2rem;
-  }
-
-  .background-image {
-    max-width: 50vw;
-    right: 1rem;
-    bottom: 1rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .background-text {
-    font-size: 10rem;
-    top: 5%;
-    left: 50%;
-  }
-
-  .header h1 {
-    font-size: 2rem;
-  }
-
-  .header h3 {
-    font-size: 0.9rem;
-  }
-
-  .header p {
-    font-size: 0.7rem;
-  }
-
-  .btn {
-    font-size: 1rem;
-  }
-
-  .background-image {
-    max-width: 60vw;
-    right: 0.5rem;
-    bottom: 0.5rem;
-  }
 }

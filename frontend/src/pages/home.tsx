@@ -9,7 +9,7 @@ const Home = () => {
   const [period, setPeriod] = useState('7day');
   const [limit, setLimit] = useState('3x3');
 
-  const API_URL = 'http://localhost:8080/collage';
+  const API_URL = 'http://localhost:8080/v1/semaninha/collage';
 
   const handleSubmit = async () => {
     const data = {
@@ -28,16 +28,18 @@ const Home = () => {
 
   return (
     <div className="container">
-      <div className="background-text">MUSIC</div>
+      <div className="background-text top">MUSIC</div>
       <div className="content">
         <div className='header'>
           <img className='icon' src={icon} alt="icon" />
           <h1>SEMANINHA</h1>
         </div>
-        <h3>Descubra sua trilha sonora perfeita com nossa ferramenta de criação de playlists </h3>
-        <p>Crie collagens de suas músicas mais ouvidas, conecte seu Spotify e deixe nossa ferramenta fazer o trabalho.
+        <div className='description-container'>
+        <h3>Descubra sua trilha sonora perfeita com nossa ferramenta de criação de colagens e playlists </h3>
+        <p>Crie colagens de suas músicas mais ouvidas, conecte seu Spotify e deixe nossa ferramenta fazer o trabalho.
           Ela cria playlists personalizadas com suas músicas mais ouvidas recentemente, em segundos.
           Seja para relaxar, treinar ou curtir a nostalgia, nós organizamos suas faixas favoritas.</p>
+          </div>
         <div className='inputs'>
           <input
             type="text"
@@ -61,9 +63,9 @@ const Home = () => {
             value={limit}
             onChange={(e) => setLimit(e.target.value)}
           >
-            <option value="3x3">3x3</option>
-            <option value="4x4">4x4</option>
-            <option value="5x5">5x5</option>
+            <option value="9">3x3</option>
+            <option value="16">4x4</option>
+            <option value="25">5x5</option>
           </select>
         </div>
         <button
@@ -75,6 +77,7 @@ const Home = () => {
           Não conhece o LastFm? <a href="https://www.last.fm" target="_blank" rel="noopener noreferrer" className="custom-link">Clique aqui</a>.
         </p>
       </div>
+      <div className="background-text bot">NEWWAY</div>  
       <img className="background-image" src={women} alt="headphone" />
     </div>
   );
