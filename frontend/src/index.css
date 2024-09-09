@@ -3,9 +3,9 @@
 
 body {
   font-family: 'Comfortaa', sans-serif;
+  font-weight: regular;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  background: linear-gradient(to left, #417B94 00%, #4AA3C7 71%);
-  color: #ffffff; 
+  background: linear-gradient(to left, #417B94 0%, #4AA3C7 100%);  color: #ffffff; 
 }
