@@ -164,6 +164,18 @@ input {
 }
 
 
+.custom-progress-bar {
+  width: 40%; 
+  height: 15px !important;
+  margin-top: 20px;
+  margin-bottom: 20px; 
+  border-radius: 10px;
+}
+
+.custom-progress-bar .MuiLinearProgress-bar {
+  background-color: #f9f9f9; 
+}
+
 @media (max-width: 768px) {
   .container {
     height: auto;
