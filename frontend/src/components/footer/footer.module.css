@@ -1,0 +1,44 @@
+.footer {
+  background: linear-gradient(to right, #B3B2C1, #76aacb);
+  padding: 1rem;
+}
+
+.footerContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footerLinks {
+  display: flex;
+  gap: 1rem;
+}
+
+.footerLink {
+  color: white;
+  text-decoration: none;
+}
+
+.footerLink:hover {
+  text-decoration: underline;
+}
+
+.footerSocials {
+  display: flex;
+  gap: 1.5rem; 
+}
+
+.footerSocialLink {
+  color: white;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+}
+
+.footerSocialLink:hover {
+  text-decoration: underline;
+}
+
+.footerSocialLink svg {
+  margin-right: 0.5rem; 
+}

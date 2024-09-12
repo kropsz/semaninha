@@ -1,0 +1,138 @@
+.container {
+  display: flex;
+  margin: 20px;
+  
+}
+
+.headers {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.back {
+  width: 80px; 
+  height: 80px; 
+  position: absolute; 
+  left: 0px; 
+  margin-bottom: 10px;
+}
+
+.backButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  color: #ffffff;
+}
+
+.title {
+  font-size: 60px;
+  margin: 0 250px;
+  white-space: nowrap;
+}
+
+.description {
+  font-size: 20px;
+  margin: 10px 0;
+  text-align: center;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.link{
+  text-decoration:underline;
+  color: inherit;
+  text-decoration-color: white;
+}
+
+.spotify {
+  display: flex;
+  align-items: center;
+}
+
+.seta {
+  margin-left: 30px;
+}
+
+.image {
+  border-radius: 10px;
+  width: 768px;
+  height: 768px;
+  margin: 10px auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  outline: 2px solid rgba(217, 217, 217, 0.5);
+  outline-offset: 10px;
+  margin-right: 10px;
+
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.footerText {
+  display: flex;
+  align-items: center;
+}
+
+.playlist {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.icon{
+  max-width: 20%;
+  margin: 10px;
+}
+
+.playlistDescription{
+  margin: 10px 15px ;
+  font-size: 20px;
+  text-align: center;
+}
+
+@keyframes glow {
+  0% {
+    box-shadow: 0 0 0.5rem #fff;
+  }
+
+  50% {
+    box-shadow: 0 0 2rem #fff;
+  }
+
+  100% {
+    box-shadow: 0 0 0.5rem #fff;
+  }
+}
+
+.button {
+  font-size: 1.7rem;
+  margin-top: 1.5rem;
+  border-radius: 1.5rem;
+  padding: 1rem 2rem;
+  border: 0.2rem solid #ffffff;
+  font-family: "Roboto", sans-serif;
+  font-weight: bold;
+  background-clip: text;
+  color: transparent;
+  background-image: linear-gradient(to bottom right, #C5EBF0 50%, white 50%);
+  transition: transform 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.button:hover {
+  animation: glow 3s infinite;
+}
+
