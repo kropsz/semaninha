@@ -3,9 +3,9 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { LinearProgress } from '@mui/material';
 import './home.css';
-import Carousel from '../components/corousel';
-import women from '../assets/headphone.png';
-import icon from '../assets/icon.svg';
+import Carousel from '../../components/corousel';
+import women from '../../assets/headphone.png';
+import icon from '../../assets/icon.svg';
 
 const Home = () => {
   const [user, setUser] = useState('');
