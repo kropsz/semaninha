@@ -41,8 +41,9 @@ const Home = () => {
 
     try {
       const response = await axios.post(API_URL, data);
-      console.log('Collage created:', response.data);
-      navigate('/nova-pagina'); 
+      const link = response.data.link;
+      console.log('Collage created:', link);
+      navigate('/playlist', { state: { link } }); 
     } catch (error) {
       console.error('Erro ao fazer a requisição:', error);
     } finally {

@@ -1,13 +1,14 @@
 import styles from './playlist.module.css';
-import collage from '../../assets/collage.jpg';
 import spotify from '../../assets/spotify.svg';
 import seta from '../../assets/seta.svg';
 import { ChevronLeft } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import Footer from '../../components/footer/footer';
 
 const PlaylistComponent = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const link = location.state?.link || '';
 
   const handleBackClick = () => {
     navigate(-1);
@@ -42,14 +43,14 @@ const PlaylistComponent = () => {
         </p>
         <div className={styles.spotify}>
           <img
-            src={collage}
+            src={link}
             alt="Album cover"
             className={styles.image}
           />
           <img className={styles.seta} src={seta} alt="" />
         </div>
       </div>
-      <div className={styles.playlist}>
+ <div className={styles.playlist}>
         <img
           src={spotify}
           alt="Spotify Icon"
