@@ -39,7 +39,7 @@ const PlaylistComponent = () => {
         </div>
         <p className={styles.description}>
           Faça agora mesmo o Download da sua colagem e<br /> compartilhe com seus amigos!
-          <a href="#" className={styles.link}> clique aqui!</a>
+          <a href="link" className={styles.link} download> clique aqui!</a>
         </p>
         <div className={styles.spotify}>
           <img
