@@ -4,6 +4,7 @@ import seta from '../../assets/seta.svg';
 import { ChevronLeft } from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Footer from '../../components/footer/footer';
+import axios from 'axios';
 
 const PlaylistComponent = () => {
   const navigate = useNavigate();
@@ -16,12 +17,10 @@ const PlaylistComponent = () => {
 
   const handleCreatePlaylist = async () => {
     try {
-      const response = await fetch('http://localhost:8082/api/spotify/auth', {
-        method: 'GET',
-      });
-      const data = await response.json();
-      if (data && data.authUrl) {
-        window.open(data.authUrl, '_blank');
+      const response = await axios.get('http://localhost:8082/api/login');
+      const authUrl = response.data; 
+      if (authUrl) {
+        window.open(authUrl, '_blank');
       }
     } catch (error) {
       console.error('Erro ao criar playlist:', error);
