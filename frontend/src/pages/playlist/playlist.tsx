@@ -5,12 +5,12 @@ import { ChevronLeft } from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Footer from '../../components/footer/footer';
 import axios from 'axios';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 const PlaylistComponent = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const link = location.state?.link || '';
+  const [link, setLink] = useState(location.state?.link || localStorage.getItem('collageLink') || '');
 
   const handleBackClick = () => {
     navigate(-1);
@@ -18,6 +18,8 @@ const PlaylistComponent = () => {
 
   const handleCreatePlaylist = async () => {
     try {
+      localStorage.setItem('collageLink', link);
+
       const response = await axios.get('http://localhost:8082/api/login');
       const authUrl = `${response.data}?redirect_uri=http://localhost:8082/api/get-user-code`;
       if (authUrl) {
@@ -46,6 +48,13 @@ const PlaylistComponent = () => {
     }
   }, [location.search]);
 
+  useEffect(() => {
+    const storedLink = localStorage.getItem('collageLink');
+    if (storedLink) {
+      setLink(storedLink);
+    }
+  }, []);
+
   return (
     <>
       <div className={styles.container}>
@@ -58,7 +67,7 @@ const PlaylistComponent = () => {
           </div>
           <p className={styles.description}>
             Faça agora mesmo o Download da sua colagem e<br /> compartilhe com seus amigos!
-            <a href="link" className={styles.link} download> clique aqui!</a>
+            <a href={link} className={styles.link} download> clique aqui!</a>
           </p>
           <div className={styles.spotify}>
             <img
