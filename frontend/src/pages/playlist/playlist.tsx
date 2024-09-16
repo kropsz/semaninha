@@ -6,52 +6,69 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import Footer from '../../components/footer/footer';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { CircularProgress } from '@mui/material';
+import SpotifyEmbed from '../../components/playlist-embed/embed';
 
 const PlaylistComponent = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [link, setLink] = useState(location.state?.link || localStorage.getItem('collageLink') || '');
+  const [user, setUser] = useState(location.state?.user || localStorage.getItem('user') || '');
+  const [isLoading, setIsLoading] = useState(false);
+  const [playlistLink, setPlaylistLink] = useState('');
+  const [hasCreatedPlaylist, setHasCreatedPlaylist] = useState(false);
+
+  localStorage.setItem('collageLink', link);
+  localStorage.setItem('user', user);
 
   const handleBackClick = () => {
-    navigate(-1);
+    navigate('/home');
   };
 
   const handleCreatePlaylist = async () => {
     try {
-      localStorage.setItem('collageLink', link);
-
       const response = await axios.get('http://localhost:8082/api/login');
       const authUrl = `${response.data}?redirect_uri=http://localhost:8082/api/get-user-code`;
       if (authUrl) {
         window.location.href = authUrl;
       }
     } catch (error) {
-      console.error('Erro ao criar playlist:', error);
+      console.error('Erro ao autenticar com o Spotify:', error);
     }
   };
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);
     const isAuthenticated = params.get('authenticated');
+    console.log('isAuthenticated:', isAuthenticated);
 
-    if (isAuthenticated) {
+    if (isAuthenticated && !hasCreatedPlaylist) { 
+      setIsLoading(true);
       const createPlaylist = async () => {
         try {
-          await axios.post('http://localhost:8082/api/playlists/create/kropsky212');
+          const response = await axios.post(`http://localhost:8082/api/playlists/create/${user}`);
           console.log('Playlist criada com sucesso');
+          setPlaylistLink(response.data.playlistLink);
+          setHasCreatedPlaylist(true); 
         } catch (error) {
           console.error('Erro ao criar playlist:', error);
+        } finally {
+          setIsLoading(false);
         }
       };
 
       createPlaylist();
     }
-  }, [location.search]);
+  }, [location.search, user, hasCreatedPlaylist]); 
 
   useEffect(() => {
     const storedLink = localStorage.getItem('collageLink');
     if (storedLink) {
       setLink(storedLink);
+    }
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      setUser(storedUser);
     }
   }, []);
 
@@ -84,12 +101,24 @@ const PlaylistComponent = () => {
             alt="Spotify Icon"
             className={styles.icon}
           />
-          <p className={styles.playlistDescription}>
-            Se você gostou da colagem, crie agora mesmo a playlist no Spotify e aproveite ainda mais essa experiência
-          </p>
-          <button className={styles.button} onClick={handleCreatePlaylist}>
-            CRIAR PLAYLIST 🎶
-          </button>
+          {isLoading ? (
+            <CircularProgress />
+          ) : (
+            <>
+              {playlistLink ? (
+                <SpotifyEmbed playlistLink={playlistLink} />
+              ) : (
+                <>
+                  <p className={styles.playlistDescription}>
+                    Se você gostou da colagem, crie agora mesmo a playlist no Spotify e aproveite ainda mais essa experiência
+                  </p>
+                  <button className={styles.button} onClick={handleCreatePlaylist}>
+                    CRIAR PLAYLIST 🎶
+                  </button>
+                </>
+              )}
+            </>
+          )}
         </div>
       </div>
       <Footer />

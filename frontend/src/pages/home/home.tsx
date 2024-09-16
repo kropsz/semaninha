@@ -17,6 +17,7 @@ const Home = () => {
   const navigate = useNavigate();
 
   const API_URL = 'http://localhost:8080/v1/semaninha/collage';
+  const GET_API_URL = 'http://localhost:8080/v1/semaninha/tracks';
 
   useEffect(() => {
     if (loading) {
@@ -43,7 +44,11 @@ const Home = () => {
       const response = await axios.post(API_URL, data);
       const link = response.data.link;
       console.log('Collage created:', link);
-      navigate('/playlist', { state: { link } }); 
+      
+      const getResponse = await axios.post(GET_API_URL, data);
+      console.log('Dados buscados:', getResponse.data);
+      console.log('User enviado:', user);
+      navigate('/playlist', { state: { link, user } }); 
     } catch (error) {
       console.error('Erro ao fazer a requisição:', error);
     } finally {
