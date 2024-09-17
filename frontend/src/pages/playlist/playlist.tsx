@@ -5,15 +5,15 @@ import { ChevronLeft } from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Footer from '../../components/footer/footer';
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { CircularProgress } from '@mui/material';
 import SpotifyEmbed from '../../components/playlist-embed/embed';
 
 const PlaylistComponent = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const [link, setLink] = useState(location.state?.link || localStorage.getItem('collageLink') || '');
-  const [user, setUser] = useState(location.state?.user || localStorage.getItem('user') || '');
+  const [link] = useState(location.state?.link || localStorage.getItem('collageLink') || '');
+  const [user] = useState(location.state?.user || localStorage.getItem('user') || '');
   const [isLoading, setIsLoading] = useState(false);
   const [playlistLink, setPlaylistLink] = useState('');
   const [hasCreatedPlaylist, setHasCreatedPlaylist] = useState(false);
@@ -29,48 +29,45 @@ const PlaylistComponent = () => {
     try {
       const response = await axios.get('http://localhost:8082/api/login');
       const authUrl = `${response.data}?redirect_uri=http://localhost:8082/api/get-user-code`;
+
       if (authUrl) {
-        window.location.href = authUrl;
+        const authWindow = window.open(authUrl, 'SpotifyLogin', 'width=500,height=600');
+
+        window.addEventListener('message', (event) => {
+          if (event.data === 'authenticated') {
+            console.log('Autenticação concluída.');
+            createPlaylistIfAuthenticated();
+          }
+        });
+
+        const authCheck = setInterval(() => {
+          if (authWindow && authWindow.closed) {
+            clearInterval(authCheck);
+            console.log('Janela de autenticação fechada.');
+          }
+        }, 500);
       }
     } catch (error) {
       console.error('Erro ao autenticar com o Spotify:', error);
     }
   };
 
-  useEffect(() => {
-    const params = new URLSearchParams(location.search);
-    const isAuthenticated = params.get('authenticated');
-    console.log('isAuthenticated:', isAuthenticated);
-
-    if (isAuthenticated && !hasCreatedPlaylist) { 
+  const createPlaylistIfAuthenticated = async () => {
+    if (!hasCreatedPlaylist) {
+      console.log('Creating playlist...');
       setIsLoading(true);
-      const createPlaylist = async () => {
-        try {
-          const response = await axios.post(`http://localhost:8082/api/playlists/create/${user}`);
-          console.log('Playlist criada com sucesso');
-          setPlaylistLink(response.data.playlistLink);
-          setHasCreatedPlaylist(true); 
-        } catch (error) {
-          console.error('Erro ao criar playlist:', error);
-        } finally {
-          setIsLoading(false);
-        }
-      };
-
-      createPlaylist();
+      try {
+        const response = await axios.post(`http://localhost:8082/api/playlists/create/${user}`);
+        console.log('Playlist criada com sucesso');
+        setPlaylistLink(response.data);
+        setHasCreatedPlaylist(true);
+      } catch (error) {
+        console.error('Erro ao criar playlist:', error);
+      } finally {
+        setIsLoading(false);
+      }
     }
-  }, [location.search, user, hasCreatedPlaylist]); 
-
-  useEffect(() => {
-    const storedLink = localStorage.getItem('collageLink');
-    if (storedLink) {
-      setLink(storedLink);
-    }
-    const storedUser = localStorage.getItem('user');
-    if (storedUser) {
-      setUser(storedUser);
-    }
-  }, []);
+  };
 
   return (
     <>
