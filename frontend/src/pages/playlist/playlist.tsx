@@ -16,6 +16,7 @@ const PlaylistComponent = () => {
   const [user] = useState(location.state?.user || localStorage.getItem('user') || '');
   const [isLoading, setIsLoading] = useState(false);
   const [playlistLink, setPlaylistLink] = useState('');
+  const [suggestion, setSuggestion] = useState('');
   const [hasCreatedPlaylist, setHasCreatedPlaylist] = useState(false);
 
   localStorage.setItem('collageLink', link);
@@ -52,6 +53,7 @@ const PlaylistComponent = () => {
     }
   };
 
+
   const createPlaylistIfAuthenticated = async () => {
     if (!hasCreatedPlaylist) {
       console.log('Creating playlist...');
@@ -66,6 +68,16 @@ const PlaylistComponent = () => {
       } finally {
         setIsLoading(false);
       }
+    }
+  };
+
+  const handleSuggestionPlaylist = async () => {
+    try {
+      const response = await axios.post(`http://localhost:8082/api/playlists/recommend/${user}`);
+      console.log('Playlist de Sugestão criada com sucesso');
+      setSuggestion(response.data);
+    } catch (error) {
+      console.error('Erro ao criar playlist de sugestão:', error);
     }
   };
 
@@ -93,25 +105,40 @@ const PlaylistComponent = () => {
           </div>
         </div>
         <div className={styles.playlist}>
-          <img
-            src={spotify}
-            alt="Spotify Icon"
-            className={styles.icon}
-          />
           {isLoading ? (
-            <CircularProgress />
+            <CircularProgress className={styles.loading} />
           ) : (
             <>
-              {playlistLink ? (
-                <SpotifyEmbed playlistLink={playlistLink} />
+              {suggestion ? (
+                <div className={styles.playlistComponent}>
+                  <SpotifyEmbed playlistLink={suggestion} />
+                  <p>Espero que goste das nossas sugestões e aproveite a playlist !!! 🤗🤗</p>
+                </div>
               ) : (
                 <>
-                  <p className={styles.playlistDescription}>
-                    Se você gostou da colagem, crie agora mesmo a playlist no Spotify e aproveite ainda mais essa experiência
-                  </p>
-                  <button className={styles.button} onClick={handleCreatePlaylist}>
-                    CRIAR PLAYLIST 🎶
-                  </button>
+                  {playlistLink ? (
+                    <div className={styles.playlistComponent}>
+                      <SpotifyEmbed playlistLink={playlistLink} />
+                      <div className='suggestion'>
+                        <p className='description'>Deseja criar uma playlist apenas com sugestões do semaninha baseado no que você anda curtindo 👀?</p>
+                        <button className='btn' onClick={handleSuggestionPlaylist}>ACEITAR SUGESTÃO</button>
+                      </div>
+                    </div>
+                  ) : (
+                    <>
+                      <img
+                        src={spotify}
+                        alt="Spotify Icon"
+                        className={styles.icon}
+                      />
+                      <p className={styles.playlistDescription}>
+                        Se você gostou da colagem, crie agora mesmo a playlist no Spotify e aproveite ainda mais essa experiência
+                      </p>
+                      <button className={styles.button} onClick={handleCreatePlaylist}>
+                        CRIAR PLAYLIST 🎶
+                      </button>
+                    </>
+                  )}
                 </>
               )}
             </>

@@ -1,4 +1,5 @@
 import React from 'react';
+import './embed.css';
 
 interface SpotifyEmbedProps {
   playlistLink: string;
@@ -15,13 +16,11 @@ const SpotifyEmbed: React.FC<SpotifyEmbedProps> = ({ playlistLink }) => {
   const embedUrl = `https://open.spotify.com/embed/playlist/${playlistId}`;
 
   return (
-    <iframe
-      src={embedUrl}
-      width="300"
-      height="380"
-      allow="encrypted-media"
-      title="Spotify Playlist"
-    ></iframe>
+    <>
+      <iframe
+        src={embedUrl}
+      ></iframe>
+    </>
   );
 };
 

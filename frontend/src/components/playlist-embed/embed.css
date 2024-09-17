@@ -1,0 +1,17 @@
+iframe {
+    width: 700px; 
+    height: 360px; 
+    border-radius: 15px; 
+    box-shadow: 0 8px 8px rgba(0, 0, 0, 0.1); 
+  }
+
+  
+.description {
+  font-size: 20px;
+  margin: 20px 0;
+  text-align: center;
+}
+
+.suggestion{
+  text-align: center;
+}
