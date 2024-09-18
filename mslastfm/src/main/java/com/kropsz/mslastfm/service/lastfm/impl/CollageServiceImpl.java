@@ -33,15 +33,15 @@ public class CollageServiceImpl implements CollageService {
 
         var image = collageConstructor.drawImagesInGrid(lastfmClient.getTopAlbums(request), request.getLimit());
 
-        var collage = saveCollage(image, user);
+        var collage = saveCollage(image, user, request.getPeriod());
         return new LinkCollage(collage.getImageUrl().toString());
     }
 
     @Override
-    public Collage saveCollage(BufferedImage image, UserData user) throws IOException {
+    public Collage saveCollage(BufferedImage image, UserData user, String period) throws IOException {
         String fileName = "collage_" + user.getUser() + "_" + user.getCollages().size() + ".png";
         s3Service.uploadImage(image, fileName);
-        return userService.addCollageToUser(user, getCollageUrl(fileName));
+        return userService.addCollageToUser(user, getCollageUrl(fileName), period);
 
     }
 

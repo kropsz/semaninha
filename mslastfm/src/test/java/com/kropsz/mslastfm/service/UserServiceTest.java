@@ -62,9 +62,10 @@ class UserServiceTest {
     void testAddCollageToUser() throws MalformedURLException {
         UserData user = new UserData("user");
         URL fileName = new URL("http://example.com/collage.jpg");
-        Collage collage = new Collage(fileName, LocalDate.now());
+        String period = "period";
+        Collage collage = new Collage(fileName, LocalDate.now(), period);
 
-        userService.addCollageToUser(user, fileName);
+        userService.addCollageToUser(user, fileName, period);
 
         assertEquals(1, user.getCollages().size());
         assertEquals(collage, user.getCollages().getFirst());
@@ -77,7 +78,8 @@ class UserServiceTest {
     void testGetCollagesByUser() throws MalformedURLException {
         String username = "user";
         UserData user = new UserData(username);
-        user.addCollage(new Collage(new URL("http://example.com/collage.jpg"), LocalDate.now()));
+        String period = "period";
+        user.addCollage(new Collage(new URL("http://example.com/collage.jpg"), LocalDate.now(), period));
         when(userRepository.findByUser(username)).thenReturn(Optional.of(user));
 
         var result = userService.getCollages(username);

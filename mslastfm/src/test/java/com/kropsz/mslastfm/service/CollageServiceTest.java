@@ -68,14 +68,14 @@ class CollageServiceTest {
     @Test
     @DisplayName("Create collage")
     void testCreateCollage() throws IOException {
-        
-        Collage collage = new Collage(new URL("http://example.com/collage_testUser_0.png"), LocalDate.now());
+        String period = "7day";
+        Collage collage = new Collage(new URL("http://example.com/collage_testUser_0.png"), LocalDate.now(), period);
 
         when(userService.getUserData(request.getUser())).thenReturn(user);
         when(lastfmClient.getTopAlbums(request)).thenReturn(albumsResponse);
         when(collageConstructor.drawImagesInGrid(albumsResponse, request.getLimit())).thenReturn(image);
         when(s3Service.getPublicUrl(anyString())).thenReturn(new URL("http://example.com/collage_testUser_0.png"));
-        when(collageService.saveCollage(image, user)).thenReturn(collage);
+        when(collageService.saveCollage(image, user, period)).thenReturn(collage);
 
         LinkCollage link = collageService.createCollage(request);
 
@@ -94,13 +94,13 @@ class CollageServiceTest {
         String fileName = "collage_testUser_0.png";
         when(s3Service.getPublicUrl(fileName)).thenReturn(new URL("http://example.com/" + fileName));
 
-        collageService.saveCollage(image, user);
+        collageService.saveCollage(image, user, "period");
 
         ArgumentCaptor<String> fileNameCaptor = ArgumentCaptor.forClass(String.class);
         verify(s3Service).uploadImage(eq(image), fileNameCaptor.capture());
         assertEquals(fileName, fileNameCaptor.getValue());
 
-        verify(userService).addCollageToUser(eq(user), any(URL.class));
+        verify(userService).addCollageToUser(eq(user), any(URL.class), eq("period"));
     }
 
     @SuppressWarnings("deprecation")

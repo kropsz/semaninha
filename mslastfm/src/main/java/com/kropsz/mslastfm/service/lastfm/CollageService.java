@@ -13,7 +13,7 @@ public interface CollageService {
 
     public LinkCollage createCollage(Request request) throws IOException;
 
-    public Collage saveCollage(BufferedImage image, UserData user) throws IOException;
+    public Collage saveCollage(BufferedImage image, UserData user, String period) throws IOException;
 
     public URL getCollageUrl(String fileName);
 }

@@ -10,7 +10,7 @@ public interface UserService {
 
     UserData getUserData(String username);
 
-    Collage addCollageToUser(UserData user, URL fileName);
+    Collage addCollageToUser(UserData user, URL fileName, String period);
 
     List<Collage> getCollages(String username);
 }

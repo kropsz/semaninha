@@ -30,8 +30,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Collage addCollageToUser(UserData user, URL fileName) {
-        Collage collage = new Collage(fileName, LocalDate.now());
+    public Collage addCollageToUser(UserData user, URL fileName, String period) {
+        Collage collage = new Collage(fileName, LocalDate.now(), period);
         user.addCollage(collage);
         userRepository.save(user);
         return collage;

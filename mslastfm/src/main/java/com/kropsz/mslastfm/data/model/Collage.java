@@ -14,5 +14,6 @@ public class Collage {
 
     private URL imageUrl;
     private LocalDate date;
+    private String period;
 
 }
