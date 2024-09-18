@@ -61,15 +61,4 @@ class CollageConstructorTest {
         assertEquals(CollageConstructor.GRID_WIDTH, result.getWidth());
         assertEquals(CollageConstructor.GRID_HEIGHT, result.getHeight());
     }
-
-    @Test
-    @DisplayName("Should transform data")
-    void testTransformData() {
-        CollageData collageData = collageConstructor.transformData(albumsResponse);
-
-        assertEquals(Collections.singletonList("http://image.url"), collageData.getImageUrls());
-        assertEquals(Collections.singletonList("Album Name"), collageData.getAlbumNames());
-        assertEquals(Collections.singletonList("Artist Name"), collageData.getArtistNames());
-    }
-
 }

@@ -42,7 +42,7 @@ public class LastFmController {
         return ResponseEntity.ok(userService.getCollages(username));
     }
 
-    @GetMapping("/tracks")
+    @PostMapping("/tracks")
     public ResponseEntity<List<Track>> getRecentTracks(@RequestBody @Valid Request request) {
         return ResponseEntity.ok().body(trackService.getRecentTracks(request));
     }

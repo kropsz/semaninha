@@ -6,6 +6,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import com.kropsz.msspotify.config.SpotifyConfig;
+import com.kropsz.msspotify.dto.UserTrackList;
 import com.kropsz.msspotify.entity.Tracks;
 import com.kropsz.msspotify.entity.UserDetails;
 import com.kropsz.msspotify.entity.enums.PlaylistType;
@@ -32,7 +33,6 @@ public class PlaylistService {
         String[] tracksId = playlistCreator.searchSpotifyTracksId(tracks, spotifyApi);
 
         playlistCreator.addTracksToPlaylist(spotifyApi, playlist.getId(), tracksId);
-        deleteTracksFromRedis(user, playlistType);
         return playlist.getLink();
 
     }
@@ -44,14 +44,10 @@ public class PlaylistService {
         return spotifyApi;
     }
 
-    @SuppressWarnings("unchecked")
     public List<Tracks> getTracksFromRedis(String user, PlaylistType playlistType) {
         String redisKey = playlistType.getPrefix() + ":" + user;
-        return (List<Tracks>) redisTemplate.opsForValue().get(redisKey);
+        var userTrackList = (UserTrackList) redisTemplate.opsForValue().get(redisKey);
+        return userTrackList.getTracks();
     }
 
-    public void deleteTracksFromRedis(String user, PlaylistType playlistType) {
-        String redisKey = playlistType.getPrefix() + ":" + user;
-        redisTemplate.delete(redisKey);
-    }
 }

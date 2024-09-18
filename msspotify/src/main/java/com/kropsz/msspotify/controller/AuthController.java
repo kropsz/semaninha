@@ -1,5 +1,6 @@
 package com.kropsz.msspotify.controller;
 
+import java.io.IOException;
 import java.net.URI;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +12,7 @@ import com.kropsz.msspotify.config.SpotifyConfig;
 import com.kropsz.msspotify.entity.UserDetails;
 import com.kropsz.msspotify.service.session.UserDetailsService;
 
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import se.michaelthelin.spotify.SpotifyApi;
 import se.michaelthelin.spotify.exceptions.SpotifyWebApiException;
@@ -44,24 +46,33 @@ public class AuthController {
     }
 
     @GetMapping("/get-user-code")
-    public UserDetails getSpotifyUserCode(@RequestParam String code) throws SpotifyWebApiException {
+    public void getSpotifyUserCode(@RequestParam String code, HttpServletResponse response)
+            throws SpotifyWebApiException, IOException {
         SpotifyApi spotifyApi = spotifyConfig.getSpotifyObject();
-
         AuthorizationCodeRequest authorizationCodeRequest = spotifyApi.authorizationCode(code).build();
+
         try {
             final AuthorizationCodeCredentials authorizationCode = authorizationCodeRequest.execute();
             spotifyApi.setAccessToken(authorizationCode.getAccessToken());
 
             final GetCurrentUsersProfileRequest getCurrentUsersProfile = spotifyApi.getCurrentUsersProfile().build();
-
             User user = getCurrentUsersProfile.execute();
+
             UserDetails userDetails = new UserDetails(
                     user.getId(),
                     authorizationCode.getAccessToken(),
                     authorizationCode.getRefreshToken());
             userDetailsService.saveUserDetails(userDetails);
-            return userDetails;
+
+            response.setContentType("text/html");
+            response.getWriter().write(
+                    "<script>" +
+                            "window.opener.postMessage('authenticated', '*');" +
+                            "window.close();" +
+                            "</script>");
+
         } catch (Exception e) {
+            e.printStackTrace();
             throw new SpotifyWebApiException("Error while getting user code");
         }
     }

@@ -29,10 +29,11 @@ public class CollageConstructor {
     public static final int GRID_WIDTH = 1250;
     public static final int GRID_HEIGHT = 1250;
 
-    private CollageData albums = new CollageData();
+    private CollageData albums;
     private final Map<String, BufferedImage> imageCache = new ConcurrentHashMap<>();
 
     public BufferedImage drawImagesInGrid(AlbumsResponse response, int limit) {
+        albums = new CollageData();
         var gridImage = createGridImage();
         Grid grid = createGrid(limit);
         albums = transformData(response);

@@ -123,7 +123,7 @@ class LastFmControllerTest {
         String requestJson = objectMapper.writeValueAsString(request);
 
         when(trackService.getRecentTracks(request)).thenReturn(Collections.emptyList());
-        mockMvc.perform(MockMvcRequestBuilders.get("/v1/semaninha/tracks")
+        mockMvc.perform(MockMvcRequestBuilders.post("/v1/semaninha/tracks")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(requestJson))
                 .andExpect(status().isOk())

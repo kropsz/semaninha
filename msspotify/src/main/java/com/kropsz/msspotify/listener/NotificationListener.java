@@ -41,7 +41,7 @@ public class NotificationListener {
 
             String key = "suggestionTracks:" + userTrackList.getUser();
 
-            redisTemplate.opsForValue().set(key, userTrackList.getTracks());
+            redisTemplate.opsForValue().set(key, userTrackList);
 
         } catch (Exception e) {
             throw new SpotifyApiException("Error receiving suggestion tracks");
