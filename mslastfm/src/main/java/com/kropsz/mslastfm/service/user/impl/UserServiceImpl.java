@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.kropsz.mslastfm.data.model.Collage;
 import com.kropsz.mslastfm.data.model.UserData;
 import com.kropsz.mslastfm.data.repository.UserDataRepository;
+import com.kropsz.mslastfm.dto.track.Track;
 import com.kropsz.mslastfm.service.user.UserService;
 
 import lombok.RequiredArgsConstructor;
@@ -30,8 +31,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Collage addCollageToUser(UserData user, URL fileName, String period) {
-        Collage collage = new Collage(fileName, LocalDate.now(), period);
+    public Collage addCollageToUser(UserData user, URL fileName, String period, List<Track> tracks){
+        Collage collage = new Collage(fileName, LocalDate.now(), period, tracks);
         user.addCollage(collage);
         userRepository.save(user);
         return collage;

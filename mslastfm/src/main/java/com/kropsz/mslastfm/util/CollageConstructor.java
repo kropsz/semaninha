@@ -33,6 +33,9 @@ public class CollageConstructor {
     private final Map<String, BufferedImage> imageCache = new ConcurrentHashMap<>();
 
     public BufferedImage drawImagesInGrid(AlbumsResponse response, int limit) {
+        
+        imageCache.clear();
+
         albums = new CollageData();
         var gridImage = createGridImage();
         Grid grid = createGrid(limit);
