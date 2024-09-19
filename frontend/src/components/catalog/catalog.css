@@ -1,0 +1,109 @@
+.bodyCards{
+  background-image: url(../../assets/background.svg);
+  color: #ffffff;
+}
+
+.headers {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.backButton {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.backButton .back {
+  width: 80px; 
+  margin-top: 20px;
+  height: 80px; 
+  color: #ffffff;
+}
+
+.catalog-container {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+  }
+  
+  .catalog {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    max-width: 1200px;
+  }
+  
+  .collage-card {
+    border: 1px solid #ffffff;
+    border-radius: 8px;
+    overflow: hidden;
+    width: 350px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    transition: transform 0.3s, box-shadow 0.3s; 
+  }
+  
+  .collage-card:hover {
+    transform: scale(1.05); 
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); 
+  }
+  
+  .collage-card img {
+    margin-top: 15px;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .collage-info {
+    padding: 16px;
+    text-align: left; 
+    width: 100%;
+    margin-left: 12px;
+  }
+  
+  .collage-info p {
+    margin: 8px 0;
+  }
+  
+  .collage-info button {
+    background-color: #26332C;
+    color: #ffffff;
+    font-family: 'Confortaa', sans-serif;
+    border: 2px solid #ddd;
+    padding: 8px 16px;
+    cursor: pointer;
+    border-radius: 4px;
+    text-align: center;
+    display: inline-block;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+}
+
+.collage-info button:hover {
+    background-color: #e0e0e0;
+    color: #000;
+    transform: scale(1.05);
+}
+
+  .track-list {
+    font-size: 16px;
+    padding: 0;
+    margin: 16px 0 0;
+    text-align: right;
+  }
+  
+  .track-list li {
+    margin: 4px 0;
+    display: flex;
+  }
