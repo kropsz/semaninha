@@ -17,7 +17,6 @@ const Home = () => {
   const navigate = useNavigate();
 
   const API_URL = 'http://localhost:8080/v1/semaninha/collage';
-  const GET_API_URL = 'http://localhost:8080/v1/semaninha/tracks';
 
   useEffect(() => {
     if (loading) {
@@ -45,9 +44,6 @@ const Home = () => {
       const link = response.data.link;
       console.log('Collage created:', link);
       
-      const getResponse = await axios.post(GET_API_URL, data);
-      console.log('Dados buscados:', getResponse.data);
-      console.log('User enviado:', user);
       navigate('/playlist', { state: { link, user } }); 
     } catch (error) {
       console.error('Erro ao fazer a requisição:', error);
@@ -58,7 +54,6 @@ const Home = () => {
 
   return (
     <div className="container">
-      <div className="background-text top">MUSIC</div>
       <div className="content">
         <div className='header'>
           <img className='icon' src={icon} alt="icon" />
@@ -113,7 +108,6 @@ const Home = () => {
           Não conhece o LastFm? <a href="https://www.last.fm" target="_blank" rel="noopener noreferrer" className="custom-link">Clique aqui</a>.
         </p>
       </div>
-      <div className="background-text bot">NEWWAY</div>  
       <img className="background-image" src={women} alt="headphone" />
     </div>
   );

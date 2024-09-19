@@ -1,7 +1,7 @@
 import styles from './playlist.module.css';
 import spotify from '../../assets/spotify.svg';
 import seta from '../../assets/seta.svg';
-import { ChevronLeft } from 'lucide-react';
+import { ChevronLeft, AlignJustify } from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Footer from '../../components/footer/footer';
 import axios from 'axios';
@@ -23,7 +23,7 @@ const PlaylistComponent = () => {
   localStorage.setItem('user', user);
 
   const handleBackClick = () => {
-    navigate('/home');
+    navigate('/');
   };
 
   const handleCreatePlaylist = async () => {
@@ -81,6 +81,10 @@ const PlaylistComponent = () => {
     }
   };
 
+  const handleCatalogClick = () => {
+    navigate('/catalog', { state: { user } });
+  };
+
   return (
     <>
       <div className={styles.container}>
@@ -96,6 +100,7 @@ const PlaylistComponent = () => {
             <a href={link} className={styles.link} download> clique aqui!</a>
           </p>
           <div className={styles.spotify}>
+          <AlignJustify onClick={handleCatalogClick} className={styles.btnItems} />
             <img
               src={link}
               alt="Album cover"
