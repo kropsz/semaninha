@@ -34,9 +34,7 @@ No lado do servidor, temos três microserviços conectados via **RabbitMQ** para
 - **msspotify**: Cuida da criação de playlists.
 - **msrecommendation**: Fornece recomendações musicais personalizadas com base nas suas preferências.
 
-<p style="text-align: left;">
-    <img src="https://github.com/user-attachments/assets/61b26e07-6efa-4e31-881b-9d7d73b1d27c" alt="Tela Playlist" width="300" style="margin-left: 20px;">
-</p>
+<img src="https://github.com/user-attachments/assets/513b1c6c-6b05-478d-ad2a-447107b36fb8" alt="Arquitetura Semaninha" width="500">
 
 Os dados das colagens são salvos em um bucket **S3** da **AWS** e armazenados no **MongoDB**, enquanto as músicas buscadas via API externas são mantidas temporariamente no **Redis** para otimizar o desempenho.
 
