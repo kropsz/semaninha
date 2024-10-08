@@ -41,17 +41,19 @@ const CollageCatalog: React.FC = () => {
     }
   }, [user]);
 
-  const toggleExpand = (index: number) => {
+  const toggleExpand = (index: number) => {  
+    console.log(`Toggling expand for index: ${index}`);
     setExpandedIndex(expandedIndex === index ? null : index);
   };
 
   const formatDate = (dateString: string): string => {
     const date = new Date(dateString);
-    const day = String(date.getDate()).padStart(2, '0');
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const year = String(date.getFullYear()).slice(-2);
+    const utcDate = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+    const day = String(utcDate.getUTCDate()).padStart(2, '0');
+    const month = String(utcDate.getUTCMonth() + 1).padStart(2, '0');
+    const year = String(utcDate.getUTCFullYear()).slice(-2);
     return `${day}/${month}/${year}`;
-  };
+};
 
   const translatePeriod = (period: string): string => {
     switch (period) {
@@ -77,7 +79,7 @@ const CollageCatalog: React.FC = () => {
       <div className="catalog-container">
         <div className="catalog">
           {collages.map((collage, index) => (
-            <div key={index} className="collage-card">
+            <div key={index} className={`collage-card ${expandedIndex === index ? 'expanded' : ''}`}>
               <img src={collage.imageUrl} alt={`Collage ${index}`} />
               <div className="collage-info">
                 <p>Data: {formatDate(collage.date)}</p>
